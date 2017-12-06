@@ -1,5 +1,7 @@
 FROM alpine:3.7
 
+ENV OAUTH2_PROXY_CONFIG_FILE "/etc/oauth2_proxy/oauth2_proxy.cfg"
+
 RUN apk --update add curl \
         && curl -sL -o oauth2_proxy.tar.gz \
         "https://github.com/bitly/oauth2_proxy/releases/download/v2.2/oauth2_proxy-2.2.0.linux-amd64.go1.8.1.tar.gz" \
@@ -10,4 +12,4 @@ RUN apk --update add curl \
         && apk del curl \
         && rm -rf /var/cache/apk /tmp /root
 
-CMD oauth2_proxy -config /etc/oauth2_proxy.cfg
+CMD oauth2_proxy -config $OAUTH2_PROXY_CONFIG_FILE
